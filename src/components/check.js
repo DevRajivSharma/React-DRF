@@ -10,7 +10,7 @@ const Check = () => {
   const [lName, setLName] = useState('')
 
   const handleSubmit = async () => {
-    const response = await fetch('https://rajivsharma.pythonanywhere.com/api/add_name', {
+    const response = await fetch('/api/add_name', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const Check = () => {
 
 
       <button className='btn btn-success' onClick={async () => {
-        let response = await fetch('https://rajivsharma.pythonanywhere.com/api/check_name')
+        let response = await fetch('/api/check_name')
         let data = await response.json()
         console.log(data)
         setnames(data)
