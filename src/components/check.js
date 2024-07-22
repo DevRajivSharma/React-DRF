@@ -11,7 +11,7 @@ const Check = () => {
 
   const handleSubmit = async () => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/add_name`, {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
