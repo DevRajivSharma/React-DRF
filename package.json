@@ -1,6 +1,5 @@
 {
   "name": "demo_frontend",
-  "proxy": "https://rajivsharma.pythonanywhere.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,5 +35,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
   }
 }

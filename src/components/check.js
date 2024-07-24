@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-
+import Loader from './loader'
 
 
 const Check = () => {
@@ -8,9 +8,11 @@ const Check = () => {
   let [names, setnames] = useState([])
   const [fName, setFName] = useState('')
   const [lName, setLName] = useState('')
-
+  const [loading, setLoading] = useState(false)
+  const [loading2, setLoading2] = useState(false)
   const handleSubmit = async () => {
-    const response = await fetch('/api/add_name', {
+    setLoading2(true)
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/add_name`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -18,7 +20,9 @@ const Check = () => {
       body: JSON.stringify({ f_name: fName, l_name: lName })
     })
     const data = await response
-    console.log(data)
+    data ? (setLoading2(false)) : setLoading2(true)
+    setFName('')
+    setLName('')
     // Optionally update the state or handle the response
   }
   return (
@@ -26,22 +30,25 @@ const Check = () => {
       <div  className='mb-3'>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">First Name</label>
-          <input type="text" name='f_name' className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setFName(e.target.value)} />
+          <input type="text" name='f_name' className="form-control" 
+          value={fName} id="exampleInputEmail1" aria-describedby="emailHelp" onChange={(e) => setFName(e.target.value)} />
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">Last Name</label>
-          <input type="text" name='l_name' className="form-control" id="exampleInputPassword1" onChange={(e) => setLName(e.target.value)} />
+          <input type="text" name='l_name' className="form-control" 
+          value={lName} id="exampleInputPassword1" onChange={(e) => setLName(e.target.value)} />
         </div>
-        <button  className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+        <button  className="btn btn-primary w-25" onClick={handleSubmit}>{loading2 ? <Loader/> : "Submit"}</button>
       </div>
 
 
-      <button className='btn btn-success' onClick={async () => {
-        let response = await fetch('/api/check_name')
+      <button className='btn btn-success w-25' onClick={async () => {
+        setLoading(true)
+        let response = await fetch(`${process.env.REACT_APP_API_URL}/check_name`)
         let data = await response.json()
-        console.log(data)
+        data ? setLoading(false) : setLoading(true)
         setnames(data)
-      }}>Request</button>
+      }}>{loading ? <Loader/> : "Request"} </button>
       
       <div className="form-floating m-3" >
         {names.map((item,index) => (
