@@ -25,7 +25,6 @@ const Check = () => {
         body: JSON.stringify({ f_name: fName, l_name: lName }),
       });
       clearTimeout(timeoutId);
-      const data = await response.json();
       setLoading2(false);
       setFName('');
       setLName('');
