@@ -4,10 +4,13 @@ this.addEventListener('install', (e) => {
         caches.open(cacheData).then((cache) => {
             cache.addAll([
                 '/static/js/bundle.js',
-                '/src/components/loader.gif',
+                '/static/media/loading.3fa77db2c7dca375d5ff.gif',
                 '/index.html',
+                '/static/css/main.ff02f4b5.css',
+                '/static/js/main.630c2b33.js',
                 '/',
                 '/manifest.json',
+                'logo.png'
             ]);
         })
     );

@@ -39,20 +39,18 @@ const Check = () => {
 
   const handleFetchNames = async () => {
     setLoading(true);
-    let timeoutId = setTimeout(() => {
-      alert('Please check your internet connection.');
-      setLoading(false);
-    }, 5000); // 20 seconds
-
+    if (!navigator.onLine)  {
+        alert('Please check your internet connection.');
+        return 'Failed'
+    }
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/check_name`);
-      clearTimeout(timeoutId);
       const data = await response.json();
       setLoading(false);
       setNames(data);
     } catch {
       // clearTimeout(timeoutId);
-      // alert('An error occurred. Please try again.');
+      alert('An error occurred. Please try again.');
       // setLoading(false);
     }
   };
@@ -72,12 +70,16 @@ const Check = () => {
             value={lName} id="exampleInputPassword1"
             onChange={(e) => setLName(e.target.value)} />
         </div>
-        <button className="btn btn-primary" onClick={handleSubmit}>
+        <button className="btn btn-primary" 
+        onClick={handleSubmit}
+        style={{width : '80px'}}>
           {loading2 ? <Loader /> : "Submit"}
         </button>
       </div>
 
-      <button className='btn btn-success' onClick={handleFetchNames}>
+      <button className='btn btn-success' 
+      onClick={handleFetchNames}
+      style={{width : '80px'}}>
         {loading ? <Loader /> : "Request"}
       </button>
 
